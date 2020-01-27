@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
 import Card from './../shared/Card/Card';
 import Loading from './../shared/Loading/Loading';
-import {requestArticles} from '../../ducks/hackerNewsReducer';
+import {requestArticles} from '../../ducks/mediumReducer';
 import {connect} from 'react-redux';
 
-class HackerNews extends Component {
+class Medium extends Component {
   componentDidMount(){
     this.props.requestArticles()
   }
-
+  
   render() {
     const articles = this.props.articles.map((article => <Card key={article.id} article={article} />))
     return (
       <div className='news-container'>
-        <img style={styles.logo} src="./hackerNews.jpeg" alt="" />
+        <img src="./mediumLogo.png" style={styles.logo} alt="" />
         {this.props.loading ? <Loading /> : <div>{articles}</div>}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => state.hackerNews;
+const mapStateToProps = state => state.medium;
 
-export default connect(mapStateToProps, {requestArticles})(HackerNews);
-
+export default connect(mapStateToProps, {requestArticles})(Medium);
 
 const styles = {
-  logo: {
-    width: '250px',
-    margin: '50px 0px'
-  }
+  logo: { width: '250px' }
 }
